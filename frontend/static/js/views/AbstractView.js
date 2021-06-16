@@ -1,15 +1,15 @@
 export let users = [{
     id: 1,
-    name: 'Yacoub',
-    website: 'www.kk.com',
-    email: 'jod@FormData.com',
-    phone: '552-55-8888'
+    name: 'Erick',
+    website: 'www.erick.com',
+    email: 'ericka.erikca.com',
+    phone: '552-558-8888'
 }, {
     id: 2,
-    name: 'john',
-    website: 'www.kk.com',
-    email: 'jod@FormData.com',
-    phone: '552-55-8888'
+    name: 'Tom',
+    website: 'www.tom.com',
+    email: 'tom@tom.com',
+    phone: '552-755-8888'
 }];
 
 const removeAllChildern = (parent) => {
@@ -19,7 +19,7 @@ const removeAllChildern = (parent) => {
 }
 
 export default class {
-    constructor(params, userList) {
+    constructor(params) {
         this.params = params;
         console.log('params', params)
     }
@@ -31,7 +31,6 @@ export default class {
     setBackground(bg) {
         const section = document.querySelector('section')
         section.style.background = bg ? `#221F26 url(${bg})` : "#221F26"
-        console.log((bg))
     }
 
 

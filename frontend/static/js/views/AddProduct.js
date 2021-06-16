@@ -13,12 +13,9 @@ export default class extends AbstractView {
         });
     }
 
-    getContacts(){
-        console.log("contact dataa")
-    }
+
 
     addUser(){
-console.log("adduser fired")
 
         document.getElementById('form').addEventListener('submit', e => {
             e.preventDefault();
@@ -41,11 +38,11 @@ console.log("adduser fired")
       
         </div>
         <form id="form" class="form-wrapper">
-          <input type="text" id="name" name="name"required placeholder="Full Name" />
-          <input type="text" required id="website" name="website" placeholder="website" />
-          <input type="email" required id="email" name="email" placeholder="Email" />
-          <input type="number"  required name="phone" id="phone" placeholder="Phone Number" />
-          <button type="submit" class="btn-submit">Save</button>
+          <input type="text" id="name" name="name"required placeholder="Full Name" autocomplete="off"/>
+          <input type="text" required id="website" name="website" placeholder="website" autocomplete="off"/>
+          <input type="email" required id="email" name="email" placeholder="Email" autocomplete="off"/>
+          <input type="number"  required name="phone" id="phone" placeholder="Phone Number" autocomplete="off"/>
+          <button type="submit" class="btn-submit"><span>Save</span></button>
         </form>
       </div>
             </div>

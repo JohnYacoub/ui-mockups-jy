@@ -12,24 +12,23 @@ export default class extends AbstractView {
             if (event.target.classList.contains('btn-delete')) {
                 this.removeCard(event);
             }
-        });
+        });   
     }
 
     async removeCard(e) {
-        console.log(e.target.getAttribute('data-id'));
         let id = Number(e.target.getAttribute('data-id'));
-        console.log("att id", id)
-        console.log(users, 'from remove');
 
-        users.filter(item => {
-            if (item.id === id) {
-                const index = Number(users.indexOf(item));
+        users.filter(user => {
+            if (user.id === id) {
+                const index = Number(users.indexOf(user));
                 if (index > -1) {
                     users.splice(index, 1)
                 };
-                return item;
+                return user;
             }
         });
+
+
         document.querySelector("#section-content").innerHTML = await this.getHtml()
     }
 
