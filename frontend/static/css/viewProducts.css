@@ -1,0 +1,11 @@
+.card-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.card {
+  width: 350px;
+  border-radius: 10px;
+  background: #fff;
+}

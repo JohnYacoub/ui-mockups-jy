@@ -4,18 +4,40 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Single Page App</title>
+  <title>VSMedia</title>
+  <link rel="icon" href="http://example.com/favicon.png">
   <link rel="stylesheet" href="/static/css/index.css">
+  <link rel="stylesheet" href="/static/css/addProduct.css">
+  <link rel="stylesheet" href="/static/css/viewProducts.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;700;800&display=swap" rel="stylesheet">
 </head>
 
 <body>
-  <nav class="nav">
-    <a href="/" class="nav__link" data-link>Dashboard</a>
-    <a href="/posts" class="nav__link" data-link>Posts</a>
-    <a href="/settings" class="nav__link" data-link>Settings</a>
-  </nav>
-  <div id="app"></div>
+  <div class="container">
+    <div class="left-col">
+      <nav>
+        <img src="./static/assets/arrow.svg" class="back-btn" alt="back-arrow">
+        <ul>
+          <li><a href="/" class="active home-btn" data-link>Home</a></li>
+          <li><a href="/add" class="add-product-btn" data-link>Add Product</a></li>
+          <li><a href="/products" class="view-product-btn" data-link>View Products</a></li>
+          <li><a href="#" class="edit-remove-btn" data-link>Edit / Remove</a></li>
+          <li><a href="#" class="reports-view-btn" data-link>Reports</a></li>
+        </ul>
+      </nav>
+    </div>
+    <section>
+      <header>
+        <img src="./static/assets/menu.svg" alt="menu" class="menu-btn">
+        <p class="logo">John .Y</p>
+      </header>
+      <div id="section-content"></div>
+
+    </section>
+  </div>
   <script type="module" src="/static/js/index.js"></script>
+  <script src="/static/js/functions/menuBtn.js"></script>
+  <script src="/static/js/functions/addUser.js"></script>
 </body>
 
 </html>
