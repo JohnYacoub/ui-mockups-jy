@@ -6,6 +6,11 @@ export default class extends AbstractView {
         this.postId = params.id;
         this.setTitle("Add User");
         this.setBackground()
+        document.addEventListener('click', event => {
+            if (event.target.classList.contains('btn-submit')) {
+               this.addUser()
+            }
+        });
     }
 
     getContacts(){
@@ -13,10 +18,18 @@ export default class extends AbstractView {
     }
 
     addUser(){
-        console.log("adding users")
-        AbstractView.addUser();
-        const thankYouMessage = document.getElementsByClassName("sign-up-thankyou");
-        console.log(thankYouMessage)
+console.log("adduser fired")
+
+        document.getElementById('form').addEventListener('submit', e => {
+            e.preventDefault();
+            let name = document.getElementById("name").value;
+            let website = document.getElementById("website").value;
+            let email = document.getElementById("email").value;
+            let phone = document.getElementById("phone").value;
+            let addNewUser = new AbstractView;
+            addNewUser.addUser(name, website, email, phone)
+        })
+
     }
     
     async getHtml() {
@@ -32,7 +45,7 @@ export default class extends AbstractView {
           <input type="text" required id="website" name="website" placeholder="website" />
           <input type="email" required id="email" name="email" placeholder="Email" />
           <input type="number"  required name="phone" id="phone" placeholder="Phone Number" />
-          <button type="submit">Save</button>
+          <button type="submit" class="btn-submit">Save</button>
         </form>
       </div>
             </div>

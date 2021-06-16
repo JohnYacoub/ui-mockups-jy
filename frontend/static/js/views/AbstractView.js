@@ -1,9 +1,27 @@
-export let users = [];
+export let users = [{
+    id: 1,
+    name: 'Yacoub',
+    website: 'www.kk.com',
+    email: 'jod@FormData.com',
+    phone: '552-55-8888'
+}, {
+    id: 2,
+    name: 'john',
+    website: 'www.kk.com',
+    email: 'jod@FormData.com',
+    phone: '552-55-8888'
+}];
+
+const removeAllChildern = (parent) => {
+    while (parent.firstChild) {
+        parent.removeChild(parent.firstChild);
+    }
+}
+
 export default class {
-    constructor(params) {
+    constructor(params, userList) {
         this.params = params;
         console.log('params', params)
-        console.log(users,"users")
     }
 
     setTitle(title) {
@@ -16,25 +34,18 @@ export default class {
         console.log((bg))
     }
 
-    static addUser() {
-        const wrapper = document.querySelector('.form-wrapper');
-        console.log("wrapper", wrapper);
-        document.getElementById('form').addEventListener('submit', e => {
-            e.preventDefault();
-            let name = document.getElementById("name").value;
-            let website = document.getElementById("website").value;
-            let email = document.getElementById("email").value;
-            let phone = document.getElementById("phone").value;
-            createUser(name, website, email, phone)
-        })
 
-        const createUser = (name, website, email, number) => {
+
+    addUser(name, website, email, number) {
+const id = Math.floor(Math.random() * 100)
             const user = {
+                id,
                 name,
                 website,
                 email,
                 number
             }
+
             // make global list
             users.push(user);
             console.log(users);
@@ -44,18 +55,14 @@ export default class {
             removeAllChildern(div);
             let p = document.createElement('p');
             p.textContent = 'Thank you! you are a memeber now!'
-            p.setAttribute('class','confirmation-message')
-             div.appendChild(p)
-       }
+            p.setAttribute('class', 'confirmation-message')
+            div.appendChild(p)
+      
 
-const removeAllChildern = (parent) =>{
-while (parent.firstChild) {
-    parent.removeChild(parent.firstChild);
-}
-}
+   
 
     }
- 
+
     async getHtml() {
         return "";
     }

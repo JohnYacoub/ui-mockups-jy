@@ -11,8 +11,8 @@ export default class extends AbstractView {
         return `
         <div class="home-wrapper">
         <div class="content">
-          <h1>Product Review</h1>
-          <p>VSMedia Product Analytics</p>
+          <h1>User Directory </h1>
+          <p>VSMedia Users Analytics</p>
           <a href="#" class="cta">View Reports</a>
         </div>
       </div>

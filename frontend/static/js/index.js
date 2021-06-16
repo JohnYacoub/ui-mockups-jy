@@ -54,37 +54,6 @@ if (!match) {
 }
 const view = new match.route.view(getParams(match));
 document.querySelector("#section-content").innerHTML = await view.getHtml();
-// console.log("mact", match.result[0])
-
-view.addUser()
-
-
-
-// if (match.result[0] === '/add') {
-//     console.log("matched view");
-//     const wrapper = document.querySelector('.form-wrapper');
-//     console.log("wrapper", wrapper);
-//     document.getElementById('form').addEventListener('submit', e => {
-//         e.preventDefault();
-//         let name = document.getElementById("name").value;
-//         let website = document.getElementById("website").value;
-//         let email = document.getElementById("email").value;
-//         let phone = document.getElementById("phone").value;
-//         createUser(name, website, email, phone)
-//     })
-
-//         const createUser = (name, website, email, number) => {
-//             const user = {
-//                 name,
-//                 website,
-//                 email,
-//                 number
-//             }
-//             globalUsers.push(user);
-//             console.log(users);
-//             document.getElementById('form').reset();
-//         }
-//     }
 
 };
 window.addEventListener("popstate", router);
