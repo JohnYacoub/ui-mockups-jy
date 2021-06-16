@@ -1,7 +1,7 @@
 export let users = [{
     id: 1,
-    name: 'Erick',
-    website: 'www.erick.com',
+    name: 'Ericka',
+    website: 'www.ericka.com',
     email: 'ericka.erikca.com',
     phone: '552-558-8888'
 }, {

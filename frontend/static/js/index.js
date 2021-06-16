@@ -1,5 +1,5 @@
 import Home from './views/Home.js'
-import AddProduct from "./views/AddProduct.js";
+import AddUser from "./views/AddUser.js";
 import ViewUsers from "./views/ViewUsers.js";
 
 
@@ -26,7 +26,7 @@ const router = async () => {
     },
     {
         path: "/add",
-        view: AddProduct
+        view: AddUser
     },
     {
         path: "/users",
