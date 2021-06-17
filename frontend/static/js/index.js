@@ -69,6 +69,6 @@ document.addEventListener("DOMContentLoaded", () => {
             navigateTo(e.target.href);
         }
     });
-    API.getAllUsers()
+    // API.getAllUsers()
     router();
 });

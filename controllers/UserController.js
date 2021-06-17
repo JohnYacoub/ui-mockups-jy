@@ -6,7 +6,9 @@ exports.getUsersList = async(req,res)=>{
     console.log(response.data)
      res.status(200).json(response.data)
   } catch (e) {
-    console.log(e)
+    res.status(400).json({
+      message: e
+    })
     
   }
 }
