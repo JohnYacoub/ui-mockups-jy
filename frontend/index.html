@@ -10,6 +10,9 @@
   <link rel="stylesheet" href="/static/css/addUser.css">
   <link rel="stylesheet" href="/static/css/viewUsers.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;700;800&display=swap" rel="stylesheet">
+  <!-- <meta http-equiv="Content-Security-Policy" content="script-src 'self' *.jsonplaceholder.typicode.com"> -->
+  <meta http-equiv="Content-Security-Policy"
+    content="default-src *; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval' *.jsonplaceholder.typicode.com https://jsonplaceholder.typicode.com">
 </head>
 
 <body>
@@ -21,7 +24,7 @@
           <li><a href="/" class="active home-btn" data-link>Home</a></li>
           <li><a href="/add" class="add-product-btn" data-link>Add User</a></li>
           <li><a href="/users" class="view-product-btn" data-link>View Users</a></li>
-          <li><a href="#" class="edit-remove-btn" data-link>Search</a></li>
+          <li><a href="/search" class="edit-remove-btn" data-link>Search</a></li>
         </ul>
       </nav>
     </div>
@@ -36,7 +39,6 @@
   </div>
   <script type="module" src="/static/js/index.js"></script>
   <script src="/static/js/functions/menuBtn.js"></script>
-  <script src="/static/js/functions/addUser.js"></script>
 </body>
 
 </html>

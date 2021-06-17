@@ -6,8 +6,10 @@ export default class extends AbstractView {
         this.postId = params.id;
         this.setTitle("Add User");
         this.setBackground()
-        document.addEventListener('click', event => {
-            if (event.target.classList.contains('btn-submit')) {
+        document.addEventListener('click', e => {
+            if (e.target.classList.contains('btn-submit')) {
+                e.preventDefault();
+                console.log("clicked")
                this.addUser()
             }
         });
@@ -16,15 +18,16 @@ export default class extends AbstractView {
 
 
     addUser(){
-
+        console.log("starting to proceed form")
         document.getElementById('form').addEventListener('submit', e => {
             e.preventDefault();
             let name = document.getElementById("name").value;
             let website = document.getElementById("website").value;
             let email = document.getElementById("email").value;
             let phone = document.getElementById("phone").value;
-            let addNewUser = new AbstractView;
-            addNewUser.addUser(name, website, email, phone)
+            console.log("I just called abstract class")
+         
+            return super.addUser(name, website, email, phone)
         })
 
     }

@@ -1,8 +1,8 @@
 import Home from './views/Home.js'
 import AddUser from "./views/AddUser.js";
 import ViewUsers from "./views/ViewUsers.js";
-
-
+import SarchView from "./views/SearchView.js";
+import * as API from './api.js'
 const pathToRegex = path => new RegExp("^" + path.replace(/\//g, "\\/").replace(/:\w+/g, "(.+)") + "$");
 
 const getParams = match => {
@@ -31,6 +31,10 @@ const router = async () => {
     {
         path: "/users",
         view: ViewUsers
+    },
+    {
+        path: "/search",
+        view: SarchView
     },
 ];
 
@@ -65,7 +69,6 @@ document.addEventListener("DOMContentLoaded", () => {
             navigateTo(e.target.href);
         }
     });
-
+    API.getAllUsers()
     router();
-   
 });

@@ -8,6 +8,7 @@ const morgan = require("morgan");
 const helmet = require("helmet");
 const PORT = process.env.PORT || 3000
 
+const userRoutes = require('./routes/users.routes')
 app.use(cors({
   origin: true
 }));
@@ -20,10 +21,14 @@ app.use(
   })
 );
 
+app.use('/api', userRoutes)
+
+
 app.use("/static", express.static(path.resolve(__dirname, "frontend", "static")));
 
-app.get("/*", (req, res) => {
+app.get("*", (req, res) => {
     res.sendFile(path.resolve(__dirname, "frontend", "index.html"));
 });
+
 
 app.listen(PORT, () => console.log(`Server is listening at http://localhost:${PORT}`));

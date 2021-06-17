@@ -36,8 +36,10 @@
 
 }
 
-.no-user-message {
+.no-user-message,
+confirmation-message {
   color: brown;
+  align-self: center;
 }
 
 @media only screen and (min-width: 700px) {
