@@ -46,8 +46,6 @@ export default class extends AbstractView {
 
 
     async getHtml() {
-
-        console.log("called og")
         return `
         <div id="user-list-wrapper">
         <h1>Users Directory</h1>

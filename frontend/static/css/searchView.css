@@ -24,23 +24,66 @@
 }
 
 .search-results-wrapper {
-  margin-top: 2rem;
+  margin-top: 2.5rem;
   display: grid;
+  place-items: center;
   grid-template-columns: 1fr;
-  grid-template-rows: .2fr 1fr;
+  grid-template-rows: max-content 1fr;
   gap: 1rem;
-  overflow-y: scroll;
-  overflow-y: hidden;
 
-  padding: 0 1.5rem;
 }
+
+.search-results-wrapper .header {
+  font-size: .75rem;
+  margin-top: 2rem;
+}
+
 
 .search-results {
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: 1fr;
   gap: 1rem;
+  height: 50vh;
   overflow-y: scroll;
-  height: 50%;
-  padding: 0 2.5rem;
+  width: 100%;
+}
+
+.nomatch-message {
+  color: brown;
+  font-size: 1rem;
+}
+
+
+@media only screen and (min-width: 700px) {
+
+  .search-results-wrapper .header {
+    font-size: 1rem;
+    margin-top: 2rem;
+    font-style: italic;
+  }
+
+  .search-results {
+    gap: 1rem;
+    width: 80%;
+    overflow-y: scroll;
+    place-items: center;
+    max-width: 600px
+  }
+
+  .search-results-wrapper {
+    margin-top: 2.5rem;
+    display: grid;
+    place-items: center;
+    grid-template-columns: 1fr;
+    grid-template-rows: max-content 1fr;
+    gap: 1rem;
+    max-width: 1250px;
+  }
+
+  .nomatch-message {
+
+    font-size: 2.9rem;
+  }
+
 }
