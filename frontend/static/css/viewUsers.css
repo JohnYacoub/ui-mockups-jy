@@ -1,10 +1,16 @@
-#user-list-wrapper {}
-
-#user-list-wrapper h1 {
-  font-size: 1.5rem;
-  margin-bottom: 2rem;
+.user-list-wrapper {
+  display: grid;
+  place-items: center;
+  margin-top: 2rem;
 }
 
+.user-list-wrapper h1 {
+  font-size: 1.5rem;
+  margin-bottom: 2rem;
+
+}
+
+/* #user-list-wrapper {}
 .card-wrapper {
   display: grid;
   grid-template-columns: 1fr;
@@ -55,4 +61,4 @@ confirmation-message {
   }
 
 
-}
+} */

@@ -1,5 +1,5 @@
-import {default as AbstractView, users}from "./AbstractView.js";
-console.log("users", users)
+import {default as AbstractView, }from "./AbstractView.js";
+
 export default class extends AbstractView {
     constructor(params) {
         super(params);

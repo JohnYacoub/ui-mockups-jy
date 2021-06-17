@@ -1,6 +1,6 @@
 import {
   default as AbstractView,
-  users,
+
 } from "./AbstractView.js";
 import * as API from '../api.js'
 
@@ -18,32 +18,32 @@ export default class extends AbstractView {
       if (e.target.classList.contains('search-input')) {
         this.handleSearch()
       }
+
+      if (e.target.classList.contains('btn-delete')) {
+        this.removeCard(e);
+      }
     });
   }
 
-  handleSearch() {
-    console.log("handling search inputsss...")
+  /**Search methods */
 
+  handleSearch() {
     const searchInput = document.getElementById('search-input');
 
     searchInput.addEventListener('keyup', e => {
       const searchString = e.target.value.toLowerCase();
-      console.log("searchString", searchString)
-      const filteredChars = userListFromAPI.filter(char => {
+      const filteredChars = importedUserList.filter(char => {
         return (
           char.name.toLowerCase().includes(searchString)
         );
       });
-      console.log(filteredChars, "filteredChars")
       this.showFiltedUsers(filteredChars);
     })
 
   }
 
   async showFiltedUsers(users) {
-
     if (!users.length) {
-      console.log("no usersss")
       const htmls = `<div class="card"><h1 class="nomatch-message">No Matches...</h1></div>`
       document.querySelector(".search-results").innerHTML = await htmls
       return;
@@ -61,18 +61,34 @@ export default class extends AbstractView {
      </div>
      `
     }).join('');
-    console.log(html)
     document.querySelector(".search-results").innerHTML = await html
   }
 
+  /**Fetch API GET */
+
   loadUsers = async () => {
-    console.log("loadCharacters...")
     userListFromAPI = await API.getUsersList();
-    console.log("data", userListFromAPI)
-    importedUserList = userListFromAPI
+    importedUserList = userListFromAPI.map(user => {
+      return user
+    })
     this.showFiltedUsers(importedUserList);
   }
 
+
+  /** Remove items */
+  async removeCard(e) {
+    if (!importedUserList.length && Array.isArray(importedUserList)) {
+      return
+    }
+    let id = Number(e.target.getAttribute('data-id'));
+    let newList = importedUserList.filter(user => {
+      if (user.id !== id) {
+        return user
+      }
+    });
+    // make API Call to delete 
+    this.showFiltedUsers(newList)
+  }
 
   async getHtml() {
     return `

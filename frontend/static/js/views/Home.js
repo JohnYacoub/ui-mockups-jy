@@ -13,7 +13,7 @@ export default class extends AbstractView {
         <div class="content">
           <h1>User Directory </h1>
           <p>VSMedia Users Analytics</p>
-          <a href="/search" class="cta" data-link>Start Lookup</a>
+          <a href="/add" class="cta" data-link>Start Lookup</a>
         </div>
       </div>
         `;

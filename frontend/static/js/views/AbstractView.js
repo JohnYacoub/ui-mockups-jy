@@ -1,16 +1,3 @@
-export let users = [{
-    id: 1,
-    name: 'Ericka',
-    website: 'www.ericka.com',
-    email: 'ericka.erikca.com',
-    phone: '552-558-8888'
-}, {
-    id: 2,
-    name: 'Tom',
-    website: 'www.tom.com',
-    email: 'tom@tom.com',
-    phone: '552-755-8888'
-}];
 
 const removeAllChildern = (parent) => {
     while (parent.firstChild) {
