@@ -87,6 +87,15 @@
 
 }
 
+.card button a {
+  color: #fff;
+  text-decoration: inherit;
+}
+
+.card .btn-edit {
+  background: rgb(34, 31, 38, .8);
+}
+
 
 @media only screen and (min-width: 700px) {
 

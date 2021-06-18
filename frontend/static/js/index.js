@@ -2,7 +2,7 @@ import Home from './views/Home.js'
 import AddUser from "./views/AddUser.js";
 import ViewUsers from "./views/ViewUsers.js";
 import SearchView from "./views/SearchView.js";
-
+// import { Validation } from "./functions/Validation.js"
 const pathToRegex = path => new RegExp("^" + path.replace(/\//g, "\\/").replace(/:\w+/g, "(.+)") + "$");
 
 const getParams = match => {
@@ -26,6 +26,10 @@ const router = async () => {
         },
         {
             path: "/add",
+            view: AddUser
+        },
+        {
+            path: "/edit/:id",
             view: AddUser
         },
         {
@@ -56,20 +60,27 @@ const router = async () => {
             result: [location.pathname]
         };
     }
+   
     const view = new match.route.view(getParams(match));
+
     document.querySelector("#section-content").innerHTML = await view.getHtml();
 
 };
 window.addEventListener("popstate", router);
 
 document.addEventListener("DOMContentLoaded", () => {
+
+
+
     document.body.addEventListener("click", e => {
         if (e.target.matches("[data-link]")) {
             e.preventDefault();
             navigateTo(e.target.href);
         }
+        // Validation()
     });
-    // API.getAllUsers()
+
     router();
+
 
 });

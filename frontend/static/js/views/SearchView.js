@@ -1,6 +1,6 @@
 import {
   default as AbstractView,
-
+  
 } from "./AbstractView.js";
 import * as API from '../api.js'
 
@@ -13,6 +13,7 @@ export default class extends AbstractView {
     this.setTitle("Search");
     this.setBackground()
     this.loadUsers();
+    this.usertId = params.id;
     document.addEventListener('click', e => {
       e.preventDefault();
       if (e.target.classList.contains('search-input')) {
@@ -56,8 +57,8 @@ export default class extends AbstractView {
      <h2>Website: ${user.website}</h2>
      <h2>Email: ${user.email}</h2>
      <h2>Phone: ${user.phone}</h2>
-     <button data-id="${user.id}">Edit</button>
-     <button data-id="${user.id}" class="btn-delete">Remove</button>
+     <button data-id="${user.id}" type="button" class="btn-edit"><a data-link href="/edit/${user.id}">Edit</a></button>
+     <button data-id="${user.id}" class="btn-delete" type="button">Remove</button>
      </div>
      `
     }).join('');
