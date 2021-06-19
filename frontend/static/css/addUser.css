@@ -81,6 +81,16 @@
   padding: 2em;
 }
 
+.form-error-hide {
+  display: none;
+  color: red
+}
+
+.form-error-show {
+  display: block;
+}
+
+
 @media only screen and (min-width: 1000px) {
   #user-wrapper {
     /* grid-template-rows: 1fr 2fr; */

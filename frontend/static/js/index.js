@@ -2,7 +2,6 @@ import Home from './views/Home.js'
 import AddUser from "./views/AddUser.js";
 import ViewUsers from "./views/ViewUsers.js";
 import SearchView from "./views/SearchView.js";
-// import { Validation } from "./functions/Validation.js"
 const pathToRegex = path => new RegExp("^" + path.replace(/\//g, "\\/").replace(/:\w+/g, "(.+)") + "$");
 
 const getParams = match => {
@@ -60,27 +59,38 @@ const router = async () => {
             result: [location.pathname]
         };
     }
-   
+
     const view = new match.route.view(getParams(match));
 
     document.querySelector("#section-content").innerHTML = await view.getHtml();
 
+
+    //  UI event listener 
+    if (match.route.path === "/add") {
+        const ui = new AddUser();
+        document.querySelector("form").addEventListener("change", (e) => {
+           ui.validateUserForm();
+        })
+        document.querySelector("form").addEventListener("submit", e => {
+            e.preventDefault();
+            ui.submitForm()
+            console.log("submit form clicked!!")
+        })
+    }
+
 };
+
 window.addEventListener("popstate", router);
 
+
+
 document.addEventListener("DOMContentLoaded", () => {
-
-
-
     document.body.addEventListener("click", e => {
         if (e.target.matches("[data-link]")) {
             e.preventDefault();
             navigateTo(e.target.href);
         }
-        // Validation()
     });
 
     router();
-
-
 });
