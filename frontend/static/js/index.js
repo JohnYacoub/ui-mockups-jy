@@ -14,6 +14,16 @@ const getParams = match => {
 };
 
 const navigateTo = url => {
+
+    const navBtn = document.querySelectorAll(".nav-btn");
+    const BtnList = [...navBtn]
+    BtnList.map(btn => {
+        btn.classList.remove('active');
+        if (btn.href == url) {
+            btn.classList.add('active');
+        }  
+    })
+    // document.querys(".quer-btn").classList.toggle('active')
     history.pushState(null, null, url);
     router();
 };
@@ -62,6 +72,7 @@ const router = async () => {
 
     const view = new match.route.view(getParams(match));
 
+
     document.querySelector("#section-content").innerHTML = await view.getHtml();
 
 
@@ -69,7 +80,7 @@ const router = async () => {
     if (match.route.path === "/add") {
         const ui = new AddUser();
         document.querySelector("form").addEventListener("change", (e) => {
-           ui.validateUserForm();
+            ui.validateUserForm();
         })
         document.querySelector("form").addEventListener("submit", e => {
             e.preventDefault();
@@ -89,6 +100,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (e.target.matches("[data-link]")) {
             e.preventDefault();
             navigateTo(e.target.href);
+
         }
     });
 

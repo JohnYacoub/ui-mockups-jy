@@ -8,7 +8,7 @@ const phoneReg = '^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}$';
 // console.log("I runn")
 
 
-document.addEventListener('onchange', (error) => {
+ const validateInputs = (name,wesite,email,phone)=>{
     // All validation checks are run in this method.   
 console.log("i ran")
     let incorrectInput = '';
@@ -30,7 +30,7 @@ console.log("i ran")
       // Prevent the form button from submitting again, before fixing the issues
       error.preventDefault(); 
     }
-  })
+  }
 
 
 

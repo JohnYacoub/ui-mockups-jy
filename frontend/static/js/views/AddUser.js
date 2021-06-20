@@ -22,7 +22,6 @@ export default class extends AbstractView {
         this.webSiteInput = document.getElementById("website")
         this.emailInput = document.getElementById("email")
         this.phoneInput = document.getElementById("phone")
-
         this.validationError = document.querySelector('#form-error')
 
     }
@@ -37,18 +36,20 @@ export default class extends AbstractView {
         console.log("webSiteInputValue", webSiteInputValue)
 
         console.log("name input", nameInputValue)
-        if (nameInputValue.length <= 0 || nameInputValue === '') {
+        if (nameInputValue.length < 0 || nameInputValue === '') {
             console.log("error please add name");
             this.validationError.classList.add("form-error-show");
             this.validationError.innerHTML = `Please Enter Valid Name`
             return
         }
-        if (webSiteInputValue.length <= 0 || webSiteInputValue === '') {
+        if (webSiteInputValue.length < 0 || webSiteInputValue === '') {
             console.log("error please add email");
             this.validationError.classList.add("form-error-show");
             this.validationError.innerHTML = `Please valid Email`
             return
         }
+        document.getElementsByClassName("form-title").innerHTML =`<h1>You are All set!</h1>`
+   
         this.validationError.classList.remove("form-error-show");
         return {
             name: nameInputValue
@@ -111,7 +112,7 @@ export default class extends AbstractView {
         </div>
         <form id="form" class="form-wrapper">
           <input type="text" id="name" name="name" class="form-input-name" required placeholder="Full Name" autocomplete="off"/>
-          <input type="text" required id="website" name="website" placeholder="website" autocomplete="off"/>
+          <input type="text" required id="website" name="website" placeholder="Website" autocomplete="off"/>
           <input type="email" required id="email" name="email" placeholder="Email" autocomplete="off"/>
           <input type="number"  required name="phone" id="phone" placeholder="Phone Number" autocomplete="off"/>
           <button type="submit" class="btn-submit-add"><span>Save</span></button>
