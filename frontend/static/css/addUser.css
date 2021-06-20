@@ -1,4 +1,4 @@
-#product-wrapper {
+#user-wrapper {
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: .5fr 1fr;
@@ -6,11 +6,11 @@
   height: 100%;
 }
 
-#product-wrapper h1 {
+#user-wrapper h1 {
   font-size: 1.5em;
 }
 
-#product-wrapper p {
+#user-wrapper p {
   font-size: 1.2em;
   width: max-content;
 }
@@ -81,12 +81,22 @@
   padding: 2em;
 }
 
+.form-error-hide {
+  display: none;
+  color: red
+}
+
+.form-error-show {
+  display: block;
+}
+
+
 @media only screen and (min-width: 1000px) {
-  #product-wrapper {
+  #user-wrapper {
     /* grid-template-rows: 1fr 2fr; */
   }
 
-  #product-wrapper .content {
+  #user-wrapper .content {
 
     justify-self: center;
     margin-left: 0;
