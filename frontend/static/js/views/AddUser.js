@@ -3,74 +3,64 @@ import {
 } from "./AbstractView.js";
 import * as API from '../api.js'
 
-export let selectedUser = ''
-
 export default class extends AbstractView {
     constructor(params) {
         super(params);
         this.setTitle("Add User");
         this.setBackground()
-        
-        // Form inputs
-        this.nameInput = document.getElementById("name");
-        this.webSiteInput = document.getElementById("website")
-        this.emailInput = document.getElementById("email")
-        this.phoneInput = document.getElementById("phone")
-        this.validationError = document.querySelector('#form-error')
-
     }
 
     validateUserForm() {
-        console.log(" I will get the fvaluesss");
-        const nameInputValue = this.nameInput.value;
-        const webSiteInputValue = this.webSiteInput.value;
-        const emailInputValue = this.emailInput.value;
-        const phoneInputValue = this.phoneInput.value;
-        console.log("nameInputValue", nameInputValue)
-        console.log("webSiteInputValue", webSiteInputValue)
+        //selectors
+        const nameInput = document.getElementById("name");
+        const webSiteInput = document.getElementById("website")
+        const emailInput = document.getElementById("email")
+        const phoneInput = document.getElementById("phone")
+        const validationError = document.querySelector('#form-error')
 
-        console.log("name input", nameInputValue)
+        //values
+        const nameInputValue = nameInput.value;
+        const webSiteInputValue = webSiteInput.value;
+        const emailInputValue = emailInput.value;
+        const phoneInputValue = phoneInput.value;
+
         if (nameInputValue.length < 0 || nameInputValue === '') {
-            console.log("error please add name");
-            this.validationError.classList.add("form-error-show");
-            this.validationError.innerHTML = `Please Enter Valid Name`
+            validationError.classList.add("form-error-show");
+            validationError.innerHTML = `Please Enter Valid Name`
             return
         }
         if (webSiteInputValue.length < 0 || webSiteInputValue === '') {
-            console.log("error please add email");
-            this.validationError.classList.add("form-error-show");
-            this.validationError.innerHTML = `Please valid Email`
+            validationError.classList.add("form-error-show");
+            validationError.innerHTML = `Please valid Email`
             return
         }
-        document.getElementsByClassName("form-title").innerHTML =`<h1>You are All set!</h1>`
-   
-        this.validationError.classList.remove("form-error-show");
+        document.getElementsByClassName("form-title").innerHTML = `<h1>You are All set!</h1>`
+
+        validationError.classList.remove("form-error-show");
         return {
-            name: nameInputValue
+            name: nameInputValue,
+            website:webSiteInputValue,
+            email:emailInputValue,
+            phone:phoneInputValue
         }
-
-
     }
 
     async submitForm() {
         const inputsPramas = await this.validateUserForm();
-        console.log("after validation", inputsPramas)
-
-        const html = await `<div>Thank you! you are all Set!</div>`
+        const html = `<div>Thank you! you are all Set!</div>
+        <a href="/search" class="cta" data-link>View Users!</a>`
         await document.getElementById('form').reset();
-        document.querySelector(".form-wrapper").innerHTML = await html
+        document.querySelector("#user-wrapper").innerHTML = await html
 
         // Make API call to submit
         const response = await API.addUser(inputsPramas)
-        console.log(response)
 
     }
 
     async loadSelectedUsers(id) {
-        selectedUser = await API.getUserById(id);
+       const selectedUser = await API.getUserById(id);
 
-
-        const html = await `<form id="form" class="form-wrapper edit-Form"></form>
+        const html = await `<form id="form" class="form-wrapper edit-Form">
 <input type="text" id="name" name="name"required placeholder="Full Name" value="${selectedUser.name}" autocomplete="off"/>
 <input type="text" required id="website" name="website" placeholder="website" value="${selectedUser.website}" autocomplete="off"/>
 <input type="email" required id="email" name="email" placeholder="Email" value="${selectedUser.email}" autocomplete="off"/>
@@ -78,23 +68,20 @@ export default class extends AbstractView {
 <button type="submit" class="btn-submit-edit">Save</button>
 <button  type="text" class="btn-form-cancel">Cancel</button>
 </form>`
-        document.body.querySelector(".form-title").innerHTML = await `<h1>Edit User</h1> `
-        document.body.querySelector(".form-wrapper").innerHTML = await html
 
+        document.body.querySelector(".user-form-content").innerHTML = await `<h1>Edit User</h1> `
+        document.body.querySelector(".form-wrapper").innerHTML = await html
     }
 
-    async editUser() {
-        console.log("i ran")
-        const userInputs = await this.validateUserForm()
-        console.log(userInputs)
-        const response = await API.editUser(userInputs)
-        if (!response.isSuccess) {
-            return
-        }
-
+    async editForm(id) {
+        const inputsPramas = await this.validateUserForm();
         const html = await `<div>Thank you! you have Successfully edited user!</div>`
         await document.getElementById('form').reset();
         document.querySelector(".form-wrapper").innerHTML = await html
+        this.setNavTab(".add-user-btn", "Add User", true)
+        // Make API call to submit
+        inputsPramas.id = id
+        const response = await API.editUser(inputsPramas)
 
     }
 
@@ -103,7 +90,7 @@ export default class extends AbstractView {
             <div id="user-wrapper">
             <div class="content user-form-content">
           <h1 class="form-title">Create a new User </h1>
-          <p>Please fill the following</p>
+          <p class="form-title">Please fill the following</p>
         </div>
         <form id="form" class="form-wrapper">
           <input type="text" id="name" name="name" class="form-input-name" required placeholder="Full Name" autocomplete="off"/>
