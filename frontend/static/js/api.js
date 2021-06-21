@@ -23,39 +23,24 @@ export const addUser = async (user) => {
         'Content-Type': 'application/json',
       },
     });
-    let {data} = await res.json();
-    console.log("Add user server response",data )
-    return {data, isSuccess:true}
+    const response = await res.json();
+    console.log(response)
+    return {response, isSuccess:true}
   } catch (e) {
     console.log(e)
   }
 }
 
-export const getUserById = async (id)=>{
-const usr ={
-  "id": 1,
-  "name": "Leanne Graham",
-  "username": "Bret",
-  "email": "Sincere@april.biz",
-  "address": {
-      "street": "Kulas Light",
-      "suite": "Apt. 556",
-      "city": "Gwenborough",
-      "zipcode": "92998-3874",
-      "geo": {
-          "lat": "-37.3159",
-          "lng": "81.1496"
-      }
-  },
-  "phone": "1-770-736-8031 x56442",
-  "website": "hildegard.org",
-  "company": {
-      "name": "Romaguera-Crona",
-      "catchPhrase": "Multi-layered client-server neural-net",
-      "bs": "harness real-time e-markets"
+
+export const getUserById = async (id) => {
+  try {
+    const res = await fetch(`${APIURL}/user/${id}`);
+    let user = await res.json();
+    console.log(user)
+    return user
+  } catch (e) {
+    console.log(e)
   }
-}
-  return usr
 }
 
 export const editUser = async (user)=>{
@@ -68,7 +53,7 @@ export const editUser = async (user)=>{
       },
     });
     let {data} = await res.json();
-    console.log(data)
+    console.log("resposne comming from the API DB after editing",data)
     return {data, isSuccess:true}
   } catch (e) {
     console.log(e)

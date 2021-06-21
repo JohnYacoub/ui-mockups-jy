@@ -25,7 +25,7 @@ exports.addUser = async (req, res, next) => {
       },
 
     });
-    // console.log(response)
+    console.log(response)
     res.status(200).json(response.data)
   } catch (e) {
     res.status(400).json({
@@ -55,6 +55,21 @@ exports.editUser = async (req, res, next) => {
 
   }
 }
+
+exports.getUserById = async (req, res, next) => {
+
+  try {
+    const response = await axios.get(`${url}/${req.params.id}`);
+    console.log("axios response", response)
+    res.status(200).json(response.data)
+  } catch (e) {
+    res.status(400).json({
+      message: e
+    })
+
+  }
+}
+
 exports.deleteUser = async (req, res, next) => {
   try {
     const response = await axios.delete(`https://jsonplaceholder.typicode.com/users/${req.id}}`);

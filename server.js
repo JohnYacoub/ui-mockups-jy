@@ -32,7 +32,6 @@ app.use('/api/users', userRoutes)
 app.use("/static", express.static(path.resolve(__dirname, "frontend", "static")));
 
 app.get("*", (req, res) => {
-  console.log("req to body ", req.body)
     res.sendFile(path.resolve(__dirname, "frontend", "index.html"));
 });
 

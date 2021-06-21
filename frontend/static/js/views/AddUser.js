@@ -2,7 +2,7 @@ import {
     default as AbstractView,
 } from "./AbstractView.js";
 import * as API from '../api.js'
-
+export let addedUserList = []
 export default class extends AbstractView {
     constructor(params) {
         super(params);
@@ -79,6 +79,8 @@ export default class extends AbstractView {
         console.log("server resposse after submission", response)
 
         if (response.isSuccess) {
+            addedUserList = [...addedUserList,{...response.response.data,...response.response.id}]
+            console.log(addedUserList );
             const html = `<div>Thank you! you are all Set!</div>
             <a href="/search" class="cta" data-link>View Users!</a>`
             await document.getElementById('form').reset();
@@ -100,7 +102,7 @@ export default class extends AbstractView {
 <input type="text" id="name" name="name"required placeholder="Full Name" value="${selectedUser.name}" autocomplete="off"/>
 <input type="url" required id="website" pattern="https://.*" name="website" placeholder="website" value="${selectedUser.website}" autocomplete="off"/>
 <input type="email" required id="email" name="email" placeholder="Email" value="${selectedUser.email}" autocomplete="off"/>
-<input type="tel"  required name="phone" id="phone" placeholder="Phone Number" value="${selectedUser.phone.slice(0,14).split("-").join('').trim()}" autocomplete="off"/>
+<input type="tel"  required name="phone" id="phone" placeholder="Phone Number" value="${selectedUser.phone.slice(0,13).split("-").join('').trim()}" autocomplete="off"/>
 <button type="submit" class="btn-submit-edit">Save</button>
 <button  type="text" class="btn-form-cancel">Cancel</button>
 </form>`
@@ -128,8 +130,6 @@ export default class extends AbstractView {
             await document.getElementById('form').reset();
             document.querySelector("#user-wrapper").innerHTML = await html
         }
-
-
     }
 
     async getHtml() {

@@ -84,6 +84,7 @@ const router = async () => {
             ui.validateUserForm();
         })
         document.querySelector("form").addEventListener("submit", e => {
+            console.log("click on submit lisitinng")
             e.preventDefault();
             ui.submitForm()
         })
