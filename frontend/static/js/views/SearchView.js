@@ -1,21 +1,24 @@
 import {
   default as AbstractView,
-  
+  localUserList
 } from "./AbstractView.js";
 import * as API from '../api.js'
 
-let userListFromAPI = [];
-let importedUserList = [];
 
+let searchList =[]
 export default class extends AbstractView {
   constructor(params) {
     super(params);
     this.setTitle("Search");
     this.setBackground()
     this.loadUsers();
-    this.usertId = params.id;
+    // this.usertId = params.id;
     document.addEventListener('click', e => {
       e.preventDefault();
+      if (e.target.classList.contains('sort-by-name')) {
+        this.sortByName(e);
+      }
+
       if (e.target.classList.contains('search-input')) {
         this.handleSearch()
       }
@@ -23,6 +26,8 @@ export default class extends AbstractView {
       if (e.target.classList.contains('btn-delete')) {
         this.removeCard(e);
       }
+
+
     });
   }
 
@@ -33,7 +38,7 @@ export default class extends AbstractView {
 
     searchInput.addEventListener('keyup', e => {
       const searchString = e.target.value.toLowerCase();
-      const filteredChars = importedUserList.filter(char => {
+      const filteredChars = searchList.filter(char => {
         return (
           char.name.toLowerCase().includes(searchString)
         );
@@ -42,6 +47,8 @@ export default class extends AbstractView {
     })
 
   }
+
+
 
   async showFiltedUsers(users) {
     if (!users.length) {
@@ -68,27 +75,36 @@ export default class extends AbstractView {
   /**Fetch API GET */
 
   loadUsers = async () => {
-    userListFromAPI = await API.getUsersList();
-    importedUserList = userListFromAPI.map(user => {
-      return user
-    })
-    this.showFiltedUsers(importedUserList);
+    const userListFromAPI = await API.getUsersList();
+
+    searchList = [...localUserList,...userListFromAPI]
+    this.showFiltedUsers(searchList);
   }
 
 
   /** Remove items */
   async removeCard(e) {
-    if (!importedUserList.length && Array.isArray(importedUserList)) {
+    if (!searchList.length && Array.isArray(searchList)) {
       return
     }
     let id = Number(e.target.getAttribute('data-id'));
-    let newList = importedUserList.filter(user => {
+    let newList = searchList.filter(user => {
       if (user.id !== id) {
+
         return user
       }
     });
     // make API Call to delete 
-    this.showFiltedUsers(newList)
+
+    searchList = newList
+    this.showFiltedUsers(...[newList])
+  }
+
+
+  async sortByName(){
+  let sortedBynameList =  await searchList.sort((a, b) => a.name.localeCompare(b.name))
+  searchList = sortedBynameList
+    this.showFiltedUsers(sortedBynameList)
   }
 
   async getHtml() {
@@ -104,6 +120,15 @@ export default class extends AbstractView {
       <div class="search-results-wrapper">
       <div class="header">
       <h2>Seach users by name, website, elc..</h2>
+      <div class="nav-sort">
+           <ul>
+               <li><button class="nav-btn sort-by-name">SortByName</button></li>
+                 <li><button class="nav-btn sort-by-Email">SortByEmail</button></li>
+           </ul>
+      </div>
+<div>
+
+</div>
       </div>
       <div class="search-results">
       </div>

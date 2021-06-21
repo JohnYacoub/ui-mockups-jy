@@ -1,8 +1,9 @@
 import {
     default as AbstractView,
+    localUserList
 } from "./AbstractView.js";
 import * as API from '../api.js'
-export let addedUserList = []
+
 export default class extends AbstractView {
     constructor(params) {
         super(params);
@@ -76,11 +77,10 @@ export default class extends AbstractView {
         const inputsPramas = await this.validateUserForm();
         // Make API call to submit
         const response = await API.addUser(inputsPramas)
-        console.log("server resposse after submission", response)
-
         if (response.isSuccess) {
-            addedUserList = [...addedUserList,{...response.response.data,...response.response.id}]
-            console.log(addedUserList );
+
+            
+            localUserList.push({...response.response.data,id:response.response.id})  
             const html = `<div>Thank you! you are all Set!</div>
             <a href="/search" class="cta" data-link>View Users!</a>`
             await document.getElementById('form').reset();
@@ -116,7 +116,6 @@ export default class extends AbstractView {
 
         inputsPramas.userId = 5
         inputsPramas.id = id
-        console.log("user Inpiuts", inputsPramas)
         const response = await API.editUser(inputsPramas)
         if (response.isSuccess) {
             const html = await `<div>Thank you! you have Successfully edited user!</div>`
