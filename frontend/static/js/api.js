@@ -1,7 +1,7 @@
-// const APIURL = 'http://localhost:3000/api/users'
+const APIURL = 'http://localhost:3000/api/users'
 
 
-const APIURL = 'https://vsmedia-mockup.herokuapp.com/api/users'
+// const APIURL = 'https://vsmedia-mockup.herokuapp.com/api/users'
 export const getUsersList = async () => {
   try {
     const res = await fetch(APIURL);
@@ -14,15 +14,17 @@ export const getUsersList = async () => {
 
 
 export const addUser = async (user) => {
-  console.log("added user", user)
+  console.log("Users inputs to be sent to the backend", user)
   try {
-    const res = await fetch(`${APIURL}/add`,{
+    const res =await fetch (`${APIURL}/add`,{
       method:'POST',
-      body: JSON.stringify({user}),
-
+      body: JSON.stringify(user),
+      headers: {
+        'Content-Type': 'application/json',
+      },
     });
     let {data} = await res.json();
-    console.log(data)
+    console.log("Add user server response",data )
     return {data, isSuccess:true}
   } catch (e) {
     console.log(e)
@@ -60,14 +62,17 @@ export const editUser = async (user)=>{
   try {
     const res = await fetch(`${APIURL}/edit/${user.id}`,{
       method:'PUT',
-      body: JSON.stringify({user}),
-
+      body: JSON.stringify(user),
+      headers: {
+        'Content-Type': 'application/json',
+      },
     });
     let {data} = await res.json();
     console.log(data)
     return {data, isSuccess:true}
   } catch (e) {
     console.log(e)
+    return {e, isSuccess:false}
   }
 
 }

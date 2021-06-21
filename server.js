@@ -9,6 +9,9 @@ const app = express();
 
 
 
+app.use(express.json());
+app.use(express.urlencoded());
+
 app.use(cors({
   origin: true
 }));
@@ -22,15 +25,18 @@ app.use(
   })
   );
 
-  const userRoutes = require('./routes/users.routes')
-app.use('/api/users', userRoutes)
 
+const userRoutes = require('./routes/users.routes')
+app.use('/api/users', userRoutes)
 
 app.use("/static", express.static(path.resolve(__dirname, "frontend", "static")));
 
 app.get("*", (req, res) => {
+  console.log("req to body ", req.body)
     res.sendFile(path.resolve(__dirname, "frontend", "index.html"));
 });
+
+
 
 
 app.listen(PORT, () => console.log(`Server is listening at http://localhost:${PORT}`));

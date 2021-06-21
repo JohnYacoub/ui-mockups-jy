@@ -55,20 +55,14 @@ export default class extends AbstractView {
             return
         }
 
-        if (phoneInputValue) {
-            if (!validatePhoneNumber(phoneInputValue)) {
-                console.log("i raan")
-                validationError.classList.add("form-error-show");
-                validationError.innerHTML = `Please enter valid Phone Number`
-                return
-            } else {
-                validationError.classList.remove("form-error-show");
-                return
-            }
-        }
-   
-        validationError.classList.remove("form-error-show");
 
+        if (!validatePhoneNumber(phoneInputValue)) {
+            validationError.classList.add("form-error-show");
+            validationError.innerHTML = `Please enter valid Phone Number`
+            return
+        }
+
+        validationError.classList.remove("form-error-show");
         return {
             name: nameInputValue,
             website: webSiteInputValue,
@@ -77,16 +71,25 @@ export default class extends AbstractView {
         }
     }
 
+
     async submitForm() {
-
         const inputsPramas = await this.validateUserForm();
-        const html = `<div>Thank you! you are all Set!</div>
-        <a href="/search" class="cta" data-link>View Users!</a>`
-        await document.getElementById('form').reset();
-        document.querySelector("#user-wrapper").innerHTML = await html
-
         // Make API call to submit
         const response = await API.addUser(inputsPramas)
+        console.log("server resposse after submission", response)
+
+        if (response.isSuccess) {
+            const html = `<div>Thank you! you are all Set!</div>
+            <a href="/search" class="cta" data-link>View Users!</a>`
+            await document.getElementById('form').reset();
+            document.querySelector("#user-wrapper").innerHTML = await html
+        } else {
+            //more error handlling if needed!!!
+            const html = `<div>Something Wrong adding user! Try again!</div>
+            <a href="/add" class="cta" data-link>Try Again!</a>`
+            await document.getElementById('form').reset();
+            document.querySelector("#user-wrapper").innerHTML = await html
+        }
 
     }
 
@@ -108,13 +111,24 @@ export default class extends AbstractView {
 
     async editForm(id) {
         const inputsPramas = await this.validateUserForm();
-        const html = await `<div>Thank you! you have Successfully edited user!</div>`
-        await document.getElementById('form').reset();
-        document.querySelector(".form-wrapper").innerHTML = await html
-        this.setNavTab(".add-user-btn", "Add User", true)
-        // Make API call to submit
+
+        inputsPramas.userId = 5
         inputsPramas.id = id
+        console.log("user Inpiuts", inputsPramas)
         const response = await API.editUser(inputsPramas)
+        if (response.isSuccess) {
+            const html = await `<div>Thank you! you have Successfully edited user!</div>`
+            await document.getElementById('form').reset();
+            document.querySelector(".form-wrapper").innerHTML = await html
+            this.setNavTab(".add-user-btn", "Add User", true)
+        } else {
+            //more error handlling if needed!!!
+            const html = `<div>Something Wrong adding user! Try again!</div>
+            <a href="/add" class="cta" data-link>Try Again!</a>`
+            await document.getElementById('form').reset();
+            document.querySelector("#user-wrapper").innerHTML = await html
+        }
+
 
     }
 

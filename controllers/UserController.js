@@ -14,18 +14,12 @@ exports.getUsersList = async (req, res) => {
   }
 }
 exports.addUser = async (req, res, next) => {
+  console.log("add ujser", req.body)
 
-  const user = {
-    name: "John",
-    website:"wwww.sdsd.com",
-    email:"email@el.com",
-    number:"888-88-8888",
-    userId:1
-  }
   try {
-    console.log(req)
+    // console.log(req)
     const response = await axios.post(`${url}`, {
-      data: user,
+      data: req.body,
       headers: {
         'Content-type': 'application/json; charset=UTF-8',
       },
@@ -40,11 +34,18 @@ exports.addUser = async (req, res, next) => {
 
   }
 }
-exports.editUser = async (req, res,next) => {
+exports.editUser = async (req, res, next) => {
+  console.log("Server edit", req.body)
   try {
 
 
-    const response = await axios.put(`https://jsonplaceholder.typicode.com/users/${req.id}}`);
+    const response = await axios.put(`https://jsonplaceholder.typicode.com/users/${req.body.id}`, {
+      data: req.body,
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8',
+      },
+
+    });
     console.log(response.data)
     res.status(200).json(response.data)
   } catch (e) {
@@ -54,7 +55,7 @@ exports.editUser = async (req, res,next) => {
 
   }
 }
-exports.deleteUser = async (req, res,next) => {
+exports.deleteUser = async (req, res, next) => {
   try {
     const response = await axios.delete(`https://jsonplaceholder.typicode.com/users/${req.id}}`);
     console.log(response.data)
