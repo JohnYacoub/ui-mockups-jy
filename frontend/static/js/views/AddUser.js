@@ -10,13 +10,7 @@ export default class extends AbstractView {
         super(params);
         this.setTitle("Add User");
         this.setBackground()
-
-        if (params && params == !undefined) {
-            this.usertId = params.id;
-            console.log(this.usertId)
-            this.setTitle("Edit User");
-            this.loadSelectedUsers()
-        }
+        
         // Form inputs
         this.nameInput = document.getElementById("name");
         this.webSiteInput = document.getElementById("website")
@@ -62,7 +56,7 @@ export default class extends AbstractView {
         const inputsPramas = await this.validateUserForm();
         console.log("after validation", inputsPramas)
 
-        const html = await `<div>Thank you! you are a memeber now!</div>`
+        const html = await `<div>Thank you! you are all Set!</div>`
         await document.getElementById('form').reset();
         document.querySelector(".form-wrapper").innerHTML = await html
 
@@ -76,21 +70,23 @@ export default class extends AbstractView {
         selectedUser = await API.getUserById(id);
 
 
-        const html = await `<form id="form" class="form-wrapper edit-Form">
+        const html = await `<form id="form" class="form-wrapper edit-Form"></form>
 <input type="text" id="name" name="name"required placeholder="Full Name" value="${selectedUser.name}" autocomplete="off"/>
 <input type="text" required id="website" name="website" placeholder="website" value="${selectedUser.website}" autocomplete="off"/>
 <input type="email" required id="email" name="email" placeholder="Email" value="${selectedUser.email}" autocomplete="off"/>
 <input type="number"  required name="phone" id="phone" placeholder="Phone Number" value="${selectedUser.phone.slice(0,14).split("-").join('').trim()}" autocomplete="off"/>
-<button type="submit" class="btn-submit-edit"><span>Save</span></button>
+<button type="submit" class="btn-submit-edit">Save</button>
+<button  type="text" class="btn-form-cancel">Cancel</button>
 </form>`
-        document.body.querySelector(".form-title").innerHTML = await `<h1>Edit User</h1>`
+        document.body.querySelector(".form-title").innerHTML = await `<h1>Edit User</h1> `
         document.body.querySelector(".form-wrapper").innerHTML = await html
 
     }
 
     async editUser() {
         console.log("i ran")
-        const userInputs = await this.getInputValues()
+        const userInputs = await this.validateUserForm()
+        console.log(userInputs)
         const response = await API.editUser(userInputs)
         if (!response.isSuccess) {
             return
@@ -103,7 +99,6 @@ export default class extends AbstractView {
     }
 
     async getHtml() {
-
         return `
             <div id="user-wrapper">
             <div class="content user-form-content">

@@ -1,5 +1,5 @@
 export default class {
-    constructor(params,) {
+    constructor(params, ) {
         this.params = params;
     }
 
@@ -12,9 +12,18 @@ export default class {
         section.style.background = bg ? `#221F26 url(${bg})` : "#221F26"
     }
 
-       setFormTitle(parg){
-        document.querySelector(".user-form-content").innerHTML =   parg
+    setFormTitle(parg) {
+        document.querySelector(".user-form-content").innerHTML = parg
     }
+
+setNavTab(className, title,isDisabled){
+    const tab = document.querySelector(className);
+    if(isDisabled){
+        tab.classList.toggle("disabled");
+    }
+
+     tab.textContent = title;
+}
 
     async getHtml() {
         return "";

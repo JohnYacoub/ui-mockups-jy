@@ -156,7 +156,11 @@ nav ul li a:hover {
 
 
 
-
+.disabled {
+  pointer-events: none;
+  cursor: not-allowed;
+  background-color: #221F26;
+}
 
 
 
