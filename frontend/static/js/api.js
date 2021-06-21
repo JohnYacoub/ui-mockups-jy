@@ -14,7 +14,6 @@ export const getUsersList = async () => {
 
 
 export const addUser = async (user) => {
-  user.userId = 998
   console.log("added user", user)
   try {
     const res = await fetch(`${APIURL}/add`,{

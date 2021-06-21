@@ -16,14 +16,14 @@ export default class {
         document.querySelector(".user-form-content").innerHTML = parg
     }
 
-setNavTab(className, title,isDisabled){
-    const tab = document.querySelector(className);
-    if(isDisabled){
-        tab.classList.toggle("disabled");
-    }
+    setNavTab(className, title, isDisabled) {
+        const tab = document.querySelector(className);
+        if (isDisabled) {
+            tab.classList.toggle("disabled");
+        }
 
-     tab.textContent = title;
-}
+        tab.textContent = title;
+    }
 
     async getHtml() {
         return "";

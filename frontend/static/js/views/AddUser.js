@@ -11,6 +11,7 @@ export default class extends AbstractView {
     }
 
     validateUserForm() {
+
         //selectors
         const nameInput = document.getElementById("name");
         const webSiteInput = document.getElementById("website")
@@ -22,30 +23,62 @@ export default class extends AbstractView {
         const nameInputValue = nameInput.value;
         const webSiteInputValue = webSiteInput.value;
         const emailInputValue = emailInput.value;
-        const phoneInputValue = phoneInput.value;
+        let phoneInputValue = phoneInput.value;
 
+        // validation helper functions
+        const validatePhoneNumber = (input) => {
+            const regex = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im;
+            return regex.test(input)
+        }
+
+        const validateTextInput = (input) => {
+            var pattern = new RegExp(/[a-zåäö ]/i);
+            return pattern.test(input);
+        }
+
+        // custom error message
         if (nameInputValue.length < 0 || nameInputValue === '') {
             validationError.classList.add("form-error-show");
             validationError.innerHTML = `Please Enter Valid Name`
             return
         }
-        if (webSiteInputValue.length < 0 || webSiteInputValue === '') {
+
+        if (!validateTextInput(nameInputValue)) {
             validationError.classList.add("form-error-show");
-            validationError.innerHTML = `Please valid Email`
+            validationError.innerHTML = `Please Enter text Only`
             return
         }
-        document.getElementsByClassName("form-title").innerHTML = `<h1>You are All set!</h1>`
 
+        if (webSiteInputValue.length < 0 || webSiteInputValue === '') {
+            validationError.classList.add("form-error-show");
+            validationError.innerHTML = `Please enter valid website starts with https://`
+            return
+        }
+
+        if (phoneInputValue) {
+            if (!validatePhoneNumber(phoneInputValue)) {
+                console.log("i raan")
+                validationError.classList.add("form-error-show");
+                validationError.innerHTML = `Please enter valid Phone Number`
+                return
+            } else {
+                validationError.classList.remove("form-error-show");
+                return
+            }
+        }
+   
         validationError.classList.remove("form-error-show");
+
         return {
             name: nameInputValue,
-            website:webSiteInputValue,
-            email:emailInputValue,
-            phone:phoneInputValue
+            website: webSiteInputValue,
+            email: emailInputValue,
+            phone: phoneInputValue
         }
     }
 
     async submitForm() {
+
         const inputsPramas = await this.validateUserForm();
         const html = `<div>Thank you! you are all Set!</div>
         <a href="/search" class="cta" data-link>View Users!</a>`
@@ -58,13 +91,13 @@ export default class extends AbstractView {
     }
 
     async loadSelectedUsers(id) {
-       const selectedUser = await API.getUserById(id);
+        const selectedUser = await API.getUserById(id);
 
         const html = await `<form id="form" class="form-wrapper edit-Form">
 <input type="text" id="name" name="name"required placeholder="Full Name" value="${selectedUser.name}" autocomplete="off"/>
-<input type="text" required id="website" name="website" placeholder="website" value="${selectedUser.website}" autocomplete="off"/>
+<input type="url" required id="website" pattern="https://.*" name="website" placeholder="website" value="${selectedUser.website}" autocomplete="off"/>
 <input type="email" required id="email" name="email" placeholder="Email" value="${selectedUser.email}" autocomplete="off"/>
-<input type="number"  required name="phone" id="phone" placeholder="Phone Number" value="${selectedUser.phone.slice(0,14).split("-").join('').trim()}" autocomplete="off"/>
+<input type="tel"  required name="phone" id="phone" placeholder="Phone Number" value="${selectedUser.phone.slice(0,14).split("-").join('').trim()}" autocomplete="off"/>
 <button type="submit" class="btn-submit-edit">Save</button>
 <button  type="text" class="btn-form-cancel">Cancel</button>
 </form>`
@@ -94,10 +127,10 @@ export default class extends AbstractView {
         </div>
         <form id="form" class="form-wrapper">
           <input type="text" id="name" name="name" class="form-input-name" required placeholder="Full Name" autocomplete="off"/>
-          <input type="text" required id="website" name="website" placeholder="Website" autocomplete="off"/>
+          <input type="url" required pattern="https://.*" id="website" name="website" placeholder="Website" autocomplete="off"/>
           <input type="email" required id="email" name="email" placeholder="Email" autocomplete="off"/>
-          <input type="number"  required name="phone" id="phone" placeholder="Phone Number" autocomplete="off"/>
-          <button type="submit" class="btn-submit-add"><span>Save</span></button>
+          <input type="tel"  required name="phone" id="phone" placeholder="Phone Number" autocomplete="off"/>
+          <button type="submit" class="btn-submit-add" >Save</button>
         </form>
         <div id="form-error" class="form-error-hide">No validation error yet!</div>
       </div>
