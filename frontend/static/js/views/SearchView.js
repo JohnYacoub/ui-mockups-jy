@@ -14,7 +14,6 @@ export default class extends AbstractView {
     this.loadUsers();
     // this.usertId = params.id;
     document.addEventListener('click', e => {
-      e.preventDefault();
       if (e.target.classList.contains('sort-by-name')) {
         this.sortItems(searchList, "name");
       }
@@ -30,8 +29,6 @@ export default class extends AbstractView {
       if (e.target.classList.contains('btn-delete')) {
         this.removeCard(e);
       }
-
-
     });
   }
 
@@ -80,6 +77,7 @@ export default class extends AbstractView {
     const userListFromAPI = await API.getUsersList();
 
     searchList = [...localUserList,...userListFromAPI]
+    
     this.showFiltedUsers(searchList);
   }
 
