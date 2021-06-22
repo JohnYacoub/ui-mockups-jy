@@ -121,10 +121,8 @@ export default class extends AbstractView {
       <div class="header">
       <h2>Seach users by name, website, elc..</h2>
       <div class="nav-sort">
-           <ul>
-               <li><button class="nav-btn sort-by-name">SortByName</button></li>
-                 <li><button class="nav-btn sort-by-Email">SortByEmail</button></li>
-           </ul>
+ <button class="nav-btn sort-by-name">SortByName</button>
+<button class="nav-btn sort-by-Email">SortByEmail</button>
       </div>
 <div>
 

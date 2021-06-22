@@ -97,15 +97,11 @@
 }
 
 
-.nav-sort ul {
-  list-style-type: none;
-  display: flex;
-  gap: .25em;
+.nav-sort button {
+  cursor: pointer;
+  padding: .2rem;
 }
 
-.nav-sort ul li {
-  /* width: 100%; */
-}
 
 .nav-sort ul li a {
   text-decoration: none;
@@ -162,8 +158,11 @@
 
   .search-results-wrapper .header {
     display: flex;
-
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
     margin-top: 0;
+    gap: 1rem
   }
 
   .search-results-wrapper {
