@@ -16,7 +16,11 @@ export default class extends AbstractView {
     document.addEventListener('click', e => {
       e.preventDefault();
       if (e.target.classList.contains('sort-by-name')) {
-        this.sortByName(e);
+        this.sortItems(searchList, "name");
+      }
+
+      if (e.target.classList.contains('sort-by-Email')) {
+        this.sortItems(searchList, "email");
       }
 
       if (e.target.classList.contains('search-input')) {
@@ -47,8 +51,6 @@ export default class extends AbstractView {
     })
 
   }
-
-
 
   async showFiltedUsers(users) {
     if (!users.length) {
@@ -100,12 +102,13 @@ export default class extends AbstractView {
     this.showFiltedUsers(...[newList])
   }
 
-
-  async sortByName(){
-  let sortedBynameList =  await searchList.sort((a, b) => a.name.localeCompare(b.name))
+  // to sort based on values....
+async sortItems(array,name){
+  let sortedBynameList =  await array.sort((a, b) => a[name].localeCompare(b[name]))
   searchList = sortedBynameList
     this.showFiltedUsers(sortedBynameList)
-  }
+
+}
 
   async getHtml() {
     return `
